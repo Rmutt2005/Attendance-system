@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { attendanceTypeLabel, type AttendanceTypeValue } from "@/lib/attendance";
 
 type AttendanceItem = {
   id: string;
-  type: "CHECK_IN" | "CHECK_OUT";
+  type: AttendanceTypeValue;
   latitude: number;
   longitude: number;
   distance: number;
@@ -61,10 +62,14 @@ export default function HistoryPage() {
           <tbody>
             {history.map((item) => (
               <tr key={item.id}>
-                <td>{item.type === "CHECK_IN" ? "Check-in" : "Check-out"}</td>
+                <td>{attendanceTypeLabel[item.type]}</td>
                 <td>{item.distance.toFixed(2)}</td>
                 <td>{item.faceDetected ? "Yes" : "No"}</td>
-                <td>{new Date(item.createdAt).toLocaleString()}</td>
+                <td>
+                  {new Date(item.createdAt).toLocaleString("en-GB", {
+                    timeZone: "Asia/Bangkok"
+                  })}
+                </td>
               </tr>
             ))}
             {history.length === 0 ? (

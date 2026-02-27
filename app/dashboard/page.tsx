@@ -3,8 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { attendanceTypeLabel, type AttendanceTypeValue } from "@/lib/attendance";
 
-type FaceApiModule = typeof import("face-api.js");
+type FaceApiModule = {
+  nets: {
+    tinyFaceDetector: {
+      loadFromUri: (uri: string) => Promise<void>;
+    };
+  };
+  TinyFaceDetectorOptions: new () => unknown;
+  detectSingleFace: (
+    input: HTMLVideoElement,
+    options: unknown
+  ) => Promise<unknown>;
+};
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -14,7 +26,7 @@ export default function DashboardPage() {
     latitude: number;
     longitude: number;
   } | null>(null);
-  const [type, setType] = useState<"check-in" | "check-out">("check-in");
+  const [type, setType] = useState<AttendanceTypeValue>("MORNING_IN");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -25,10 +37,10 @@ export default function DashboardPage() {
 
     const initialize = async () => {
       try {
-        const module = await import("face-api.js");
-        await module.nets.tinyFaceDetector.loadFromUri("/models");
+        const faceApiLib = await import("face-api.js");
+        await faceApiLib.nets.tinyFaceDetector.loadFromUri("/models");
         if (!active) return;
-        setFaceApi(module);
+        setFaceApi(faceApiLib as unknown as FaceApiModule);
 
         stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: "user" }
@@ -152,10 +164,12 @@ export default function DashboardPage() {
         <select
           id="type"
           value={type}
-          onChange={(event) => setType(event.target.value as "check-in" | "check-out")}
+          onChange={(event) => setType(event.target.value as AttendanceTypeValue)}
         >
-          <option value="check-in">Check-in</option>
-          <option value="check-out">Check-out</option>
+          <option value="MORNING_IN">{attendanceTypeLabel.MORNING_IN}</option>
+          <option value="LUNCH_OUT">{attendanceTypeLabel.LUNCH_OUT}</option>
+          <option value="AFTERNOON_IN">{attendanceTypeLabel.AFTERNOON_IN}</option>
+          <option value="EVENING_OUT">{attendanceTypeLabel.EVENING_OUT}</option>
         </select>
 
         <button onClick={handleCheckin} disabled={loading}>
@@ -167,6 +181,9 @@ export default function DashboardPage() {
 
         <p>
           <Link href="/history">View Attendance History</Link>
+        </p>
+        <p>
+          <Link href="/users">Create User</Link>
         </p>
       </div>
     </main>

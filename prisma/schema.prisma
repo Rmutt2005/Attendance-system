@@ -36,6 +36,8 @@ model Attendance {
 }
 
 enum AttendanceType {
-  CHECK_IN
-  CHECK_OUT
+  MORNING_IN
+  LUNCH_OUT
+  AFTERNOON_IN
+  EVENING_OUT
 }

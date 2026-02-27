@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { SESSION_COOKIE_NAME } from "@/lib/constants";
 
-const protectedPages = ["/dashboard", "/history"];
-const protectedApis = ["/api/checkin", "/api/history"];
+const protectedPages = ["/dashboard", "/history", "/users"];
+const protectedApis = ["/api/checkin", "/api/history", "/api/users"];
 
 const isProtectedPage = (pathname: string) =>
   protectedPages.some((path) => pathname.startsWith(path));
@@ -41,5 +41,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/dashboard/:path*", "/history/:path*", "/api/:path*"]
+  matcher: [
+    "/login",
+    "/dashboard/:path*",
+    "/history/:path*",
+    "/users/:path*",
+    "/api/:path*"
+  ]
 };
