@@ -13,10 +13,10 @@ async function main() {
       name: "Admin User",
       email: "admin@example.com",
       password: passwordHash,
-      allowedLat: -6.200000,
+      allowedLat: -6.2,
       allowedLng: 106.816666,
-      radius: 200
-    }
+      radius: 200,
+    },
   });
 }
 
