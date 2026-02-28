@@ -2,10 +2,11 @@ import { cookies } from "next/headers";
 import { jwtVerify, SignJWT } from "jose";
 import { SESSION_COOKIE_NAME, SESSION_DURATION_SECONDS } from "@/lib/constants";
 
-type SessionPayload = {
+export type SessionPayload = {
   userId: string;
   email: string;
   name: string;
+  role: "ADMIN" | "USER";
 };
 
 const getJwtSecret = () => {

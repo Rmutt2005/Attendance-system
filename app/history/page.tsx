@@ -7,6 +7,9 @@ import { attendanceTypeLabel, type AttendanceTypeValue } from "@/lib/attendance"
 type AttendanceItem = {
   id: string;
   type: AttendanceTypeValue;
+  location: {
+    name: string;
+  };
   latitude: number;
   longitude: number;
   distance: number;
@@ -47,12 +50,13 @@ export default function HistoryPage() {
       <div className="card">
         <h1>Attendance History</h1>
         <p>
-          <Link href="/dashboard">Back to Dashboard</Link>
+          <Link href="/">Back to Home</Link>
         </p>
         {error ? <p className="error">{error}</p> : null}
         <table>
           <thead>
             <tr>
+              <th>Location</th>
               <th>Type</th>
               <th>Distance (m)</th>
               <th>Face</th>
@@ -62,6 +66,7 @@ export default function HistoryPage() {
           <tbody>
             {history.map((item) => (
               <tr key={item.id}>
+                <td>{item.location.name}</td>
                 <td>{attendanceTypeLabel[item.type]}</td>
                 <td>{item.distance.toFixed(2)}</td>
                 <td>{item.faceDetected ? "Yes" : "No"}</td>
@@ -74,7 +79,7 @@ export default function HistoryPage() {
             ))}
             {history.length === 0 ? (
               <tr>
-                <td colSpan={4}>No records yet.</td>
+                <td colSpan={5}>No records yet.</td>
               </tr>
             ) : null}
           </tbody>

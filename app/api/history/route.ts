@@ -11,6 +11,11 @@ export async function GET() {
 
     const items = await prisma.attendance.findMany({
       where: { userId: session.userId },
+      include: {
+        location: {
+          select: { name: true }
+        }
+      },
       orderBy: { createdAt: "desc" }
     });
 

@@ -12,6 +12,7 @@ import { prisma } from "@/lib/prisma";
 
 type CheckinBody = {
   type?: string;
+  locationId?: string;
   latitude?: number;
   longitude?: number;
   faceDetected?: boolean;
@@ -30,6 +31,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = (await request.json()) as CheckinBody;
+    if (!body.locationId) {
+      return NextResponse.json(
+        { error: "locationId is required." },
+        { status: 400 }
+      );
+    }
     if (body.faceDetected !== true) {
       return NextResponse.json(
         { error: "No face detected. Check-in blocked." },
@@ -48,19 +55,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const location = await prisma.location.findFirst({
+      where: {
+        id: body.locationId,
+        isActive: true,
+        userLocations: {
+          some: { userId: user.id }
+        }
+      }
+    });
+    if (!location) {
+      return NextResponse.json(
+        { error: "You do not have access to this location." },
+        { status: 403 }
+      );
+    }
+
     const distance = haversineDistanceMeters(
-      user.allowedLat,
-      user.allowedLng,
+      location.latitude,
+      location.longitude,
       body.latitude,
       body.longitude
     );
 
-    if (distance > user.radius) {
+    if (distance > location.radius) {
       return NextResponse.json(
         {
           error: `Outside allowed radius. Distance: ${distance.toFixed(
             2
-          )}m, allowed: ${user.radius}m.`
+          )}m, allowed: ${location.radius}m.`
         },
         { status: 400 }
       );
@@ -118,6 +141,7 @@ export async function POST(request: NextRequest) {
     await prisma.attendance.create({
       data: {
         userId: user.id,
+        locationId: location.id,
         type,
         latitude: body.latitude,
         longitude: body.longitude,

@@ -37,7 +37,8 @@ export async function POST(request: NextRequest) {
     const token = await signSessionToken({
       userId: user.id,
       email: user.email,
-      name: user.name
+      name: user.name,
+      role: user.role
     });
 
     const response = NextResponse.json({ message: "Login success" });

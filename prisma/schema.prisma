@@ -8,21 +8,47 @@ datasource db {
 }
 
 model User {
-  id         String       @id @default(cuid())
-  name       String
-  email      String       @unique
-  password   String
-  allowedLat Float
-  allowedLng Float
-  radius     Int          @default(200)
-  attendances Attendance[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  id           String         @id @default(cuid())
+  name         String
+  email        String         @unique
+  password     String
+  role         UserRole       @default(USER)
+  attendances  Attendance[]
+  userLocations UserLocation[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Location {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  latitude      Float
+  longitude     Float
+  radius        Int            @default(200)
+  isActive      Boolean        @default(true)
+  attendances   Attendance[]
+  userLocations UserLocation[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model UserLocation {
+  id         String   @id @default(cuid())
+  userId     String
+  locationId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, locationId])
+  @@index([locationId])
 }
 
 model Attendance {
   id           String         @id @default(cuid())
   userId       String
+  locationId   String
   type         AttendanceType
   latitude     Float
   longitude    Float
@@ -30,9 +56,11 @@ model Attendance {
   faceDetected Boolean        @default(false)
   createdAt    DateTime       @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+  @@index([locationId, createdAt])
 }
 
 enum AttendanceType {
@@ -40,4 +68,9 @@ enum AttendanceType {
   LUNCH_OUT
   AFTERNOON_IN
   EVENING_OUT
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
