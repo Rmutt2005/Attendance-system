@@ -28,9 +28,6 @@ export default function AdminDashboardPage() {
         <p>
           <Link href="/locations">Location Management</Link>
         </p>
-        <p>
-          <Link href="/history">My Attendance History</Link>
-        </p>
       </div>
     </main>
   );
