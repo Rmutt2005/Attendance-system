@@ -17,6 +17,7 @@ export default function HomePage() {
   const router = useRouter();
   const [me, setMe] = useState<MeResponse | null>(null);
   const [error, setError] = useState("");
+  const statusValue = me ? (me.attendanceLocationReady ? "Ready" : "Not Ready") : "Loading";
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -47,13 +48,17 @@ export default function HomePage() {
             <p style={{ margin: "6px 0 0 0" }}>
               Status:{" "}
               <span
-                className={
-                  me?.attendanceLocationReady ? "success" : me ? "error" : ""
-                }
+                className={`status-badge ${
+                  statusValue === "Ready"
+                    ? "status-ready"
+                    : statusValue === "Not Ready"
+                      ? "status-not-ready"
+                      : "status-loading"
+                }`}
               >
                 {me
-                  ? me.attendanceLocationReady
-                    ? `Ready for attendance (${me.assignedLocationCount} locations)`
+                  ? statusValue === "Ready"
+                    ? `${statusValue} (${me.assignedLocationCount} locations)`
                     : "No attendance location yet (waiting admin)"
                   : "Loading status..."}
               </span>

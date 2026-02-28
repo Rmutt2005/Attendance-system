@@ -12,7 +12,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen bg-no-repeat bg-cover">
         <AppChrome />
         <div className="app-page">{children}</div>
       </body>
