@@ -10,15 +10,17 @@ export default function LocationsMenuPage() {
         <p>
           <Link href="/dashboard">Back to Dashboard</Link>
         </p>
-        <p>
-          <Link href="/locations/create">Create Location</Link>
-        </p>
-        <p>
-          <Link href="/locations/manage">Edit / Delete / Enable Location</Link>
-        </p>
-        <p>
-          <Link href="/locations/history">Location Attendance History</Link>
-        </p>
+        <div className="menu-links">
+          <Link href="/locations/create" className="menu-link">
+            Create Location
+          </Link>
+          <Link href="/locations/manage" className="menu-link">
+            Edit / Delete / Enable
+          </Link>
+          <Link href="/locations/history" className="menu-link">
+            Location Attendance History
+          </Link>
+        </div>
       </div>
     </main>
   );

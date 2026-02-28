@@ -165,21 +165,21 @@ export default function ManageLocationsPage() {
                   <div className="row">
                     <button
                       type="button"
-                      style={{ maxWidth: 120 }}
+                      className="button-secondary"
                       onClick={() => startEdit(location)}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
-                      style={{ maxWidth: 120, background: "#475569" }}
+                      className="button-muted"
                       onClick={() => toggleActive(location)}
                     >
                       {location.isActive ? "Disable" : "Enable"}
                     </button>
                     <button
                       type="button"
-                      style={{ maxWidth: 120, background: "#b91c1c" }}
+                      className="button-danger"
                       onClick={() => deleteLocation(location.id)}
                     >
                       Delete
@@ -241,7 +241,7 @@ export default function ManageLocationsPage() {
                 <button
                   type="button"
                   onClick={resetForm}
-                  style={{ background: "#6b7280" }}
+                  className="button-muted"
                 >
                   Cancel Edit
                 </button>

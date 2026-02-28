@@ -10,12 +10,14 @@ export default function UsersMenuPage() {
         <p>
           <Link href="/dashboard">Back to Dashboard</Link>
         </p>
-        <p>
-          <Link href="/users/create">Create User</Link>
-        </p>
-        <p>
-          <Link href="/users/access">Assign Location Access</Link>
-        </p>
+        <div className="menu-links">
+          <Link href="/users/create" className="menu-link">
+            Create User
+          </Link>
+          <Link href="/users/access" className="menu-link">
+            Assign Location Access
+          </Link>
+        </div>
       </div>
     </main>
   );

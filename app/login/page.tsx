@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,9 +42,18 @@ export default function LoginPage() {
 
   return (
     <main className="container">
-      <div className="card" style={{ maxWidth: 440, margin: "60px auto" }}>
+      <div className="card auth-card" style={{ maxWidth: 460, margin: "70px auto" }}>
+        <div className="auth-logo-wrap">
+          <Image
+            src="/images/logo.PNG"
+            alt="Logo"
+            width={56}
+            height={56}
+            className="auth-logo"
+          />
+        </div>
         <h1>Login</h1>
-
+        
         <form onSubmit={onSubmit}>
           <label htmlFor="email">Email</label>
           <input

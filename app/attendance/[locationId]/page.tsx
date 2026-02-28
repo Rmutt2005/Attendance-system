@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { attendanceTypeLabel, type AttendanceTypeValue } from "@/lib/attendance";
 
 type FaceApiModule = {
@@ -27,7 +27,6 @@ type LocationResponse = {
 };
 
 export default function AttendanceScanPage() {
-  const router = useRouter();
   const params = useParams<{ locationId: string }>();
   const locationId = params.locationId;
 
@@ -132,12 +131,6 @@ export default function AttendanceScanPage() {
     };
   }, [faceApi]);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
-    router.refresh();
-  };
-
   const handleCheckin = async () => {
     setMessage("");
     setError("");
@@ -192,12 +185,7 @@ export default function AttendanceScanPage() {
   return (
     <main className="container">
       <div className="card">
-        <div className="row" style={{ justifyContent: "space-between" }}>
-          <h1>Attendance Scan</h1>
-          <button style={{ maxWidth: 140 }} onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
+        <h1>Attendance Scan</h1>
 
         <p>
           Selected location: <strong>{targetLocationName}</strong>
@@ -253,7 +241,7 @@ export default function AttendanceScanPage() {
           <option value="EVENING_OUT">{attendanceTypeLabel.EVENING_OUT}</option>
         </select>
 
-        <button onClick={handleCheckin} disabled={loading}>
+        <button className="attendance-main-button" onClick={handleCheckin} disabled={loading}>
           {loading ? "Submitting..." : "Submit Attendance"}
         </button>
 

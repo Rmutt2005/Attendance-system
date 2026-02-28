@@ -35,12 +35,6 @@ export default function HomePage() {
     loadProfile();
   }, []);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
-    router.refresh();
-  };
-
   return (
     <main className="container">
       <div className="card" style={{ maxWidth: 720, margin: "20px auto" }}>
@@ -70,7 +64,11 @@ export default function HomePage() {
         {error ? <p className="error">{error}</p> : null}
 
         <div className="row" style={{ marginTop: 12 }}>
-          <button type="button" onClick={() => router.push("/attendance")}>
+          <button
+            type="button"
+            className="attendance-main-button"
+            onClick={() => router.push("/attendance")}
+          >
             Attendance Check In/Out
           </button>
           <button type="button" onClick={() => router.push("/history")}>
@@ -80,10 +78,6 @@ export default function HomePage() {
             Edit Profile
           </button>
         </div>
-
-        <button style={{ maxWidth: 160, marginTop: 18 }} onClick={handleLogout}>
-          Logout
-        </button>
       </div>
     </main>
   );

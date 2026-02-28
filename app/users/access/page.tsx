@@ -178,7 +178,7 @@ export default function UserAccessPage() {
               <button
                 type="button"
                 onClick={() => setAssigningUserId(null)}
-                style={{ background: "#6b7280" }}
+                className="button-muted"
               >
                 Cancel
               </button>
