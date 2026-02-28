@@ -30,6 +30,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [faceDetectedLive, setFaceDetectedLive] = useState<boolean | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -78,6 +79,29 @@ export default function DashboardPage() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!faceApi) return;
+
+    const intervalId = window.setInterval(async () => {
+      const video = videoRef.current;
+      if (!video || video.readyState < 2) return;
+
+      try {
+        const result = await faceApi.detectSingleFace(
+          video,
+          new faceApi.TinyFaceDetectorOptions()
+        );
+        setFaceDetectedLive(Boolean(result));
+      } catch {
+        setFaceDetectedLive(null);
+      }
+    }, 1000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [faceApi]);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -157,8 +181,34 @@ export default function DashboardPage() {
           autoPlay
           muted
           playsInline
-          style={{ width: "100%", maxWidth: 420, borderRadius: 8 }}
+          style={{
+            width: "100%",
+            maxWidth: 420,
+            borderRadius: 8,
+            transform: "scaleX(-1)",
+            border:
+              faceDetectedLive === null
+                ? "3px solid #9ca3af"
+                : faceDetectedLive
+                  ? "3px solid #16a34a"
+                  : "3px solid #dc2626"
+          }}
         />
+        <p
+          className={
+            faceDetectedLive === null
+              ? ""
+              : faceDetectedLive
+                ? "success"
+                : "error"
+          }
+        >
+          {faceDetectedLive === null
+            ? "Face status: Waiting for camera..."
+            : faceDetectedLive
+              ? "Face status: Face detected"
+              : "Face status: No face detected"}
+        </p>
 
         <label htmlFor="type">Attendance Type</label>
         <select
