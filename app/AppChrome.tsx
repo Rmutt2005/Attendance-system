@@ -23,7 +23,7 @@ export default function AppChrome() {
     <div className="chrome-wrap">
       <div className="chrome-brand">
         <Image
-          src="/images/logo.PNG"
+          src="/logo.png"
           alt="Logo"
           width={34}
           height={34}

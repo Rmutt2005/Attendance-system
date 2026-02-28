@@ -80,7 +80,7 @@ export default function LocationHistoryPage() {
 
   return (
     <main className="container">
-      <div className="card" style={{ maxWidth: 980, margin: "20px auto" }}>
+      <div className="card w-full" style={{ maxWidth: 980, margin: "20px auto" }}>
         <h1>Location Attendance History</h1>
         <p>
           <Link href="/locations">Back to Location Management</Link>
@@ -104,26 +104,27 @@ export default function LocationHistoryPage() {
         </button>
 
         {selectedLocationName ? <h2>History: {selectedLocationName}</h2> : null}
-        <table>
+        <div className="w-full overflow-x-auto rounded-3xl min-w-0 location-history-table-wrap">
+          <table className="min-w-full table-fixed location-history-table">
           <thead>
             <tr>
-              <th>User</th>
-              <th>Email</th>
-              <th>Type</th>
-              <th>Distance</th>
-              <th>Face</th>
-              <th>Time</th>
+              <th className="truncate max-w-[180px]">User</th>
+              <th className="truncate max-w-[180px]">Email</th>
+              <th className="truncate max-w-[180px]">Type</th>
+              <th className="truncate max-w-[180px]">Distance</th>
+              <th className="truncate max-w-[180px]">Face</th>
+              <th className="truncate max-w-[180px]">Time</th>
             </tr>
           </thead>
           <tbody>
             {historyItems.map((item) => (
               <tr key={item.id}>
-                <td>{item.user.name}</td>
-                <td>{item.user.email}</td>
-                <td>{attendanceTypeLabel[item.type]}</td>
-                <td>{item.distance.toFixed(2)}m</td>
-                <td>{item.faceDetected ? "Yes" : "No"}</td>
-                <td>
+                <td className="truncate max-w-[180px]">{item.user.name}</td>
+                <td className="truncate max-w-[180px]">{item.user.email}</td>
+                <td className="truncate max-w-[180px]">{attendanceTypeLabel[item.type]}</td>
+                <td className="truncate max-w-[180px]">{item.distance.toFixed(2)}m</td>
+                <td className="truncate max-w-[180px]">{item.faceDetected ? "Yes" : "No"}</td>
+                <td className="break-words">
                   {new Date(item.createdAt).toLocaleString("en-GB", {
                     timeZone: "Asia/Bangkok"
                   })}
@@ -132,11 +133,12 @@ export default function LocationHistoryPage() {
             ))}
             {historyItems.length === 0 ? (
               <tr>
-                <td colSpan={6}>No records.</td>
+                <td className="break-words" colSpan={6}>No records.</td>
               </tr>
             ) : null}
           </tbody>
-        </table>
+          </table>
+        </div>
 
         {error ? <p className="error">{error}</p> : null}
       </div>

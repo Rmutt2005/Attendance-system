@@ -10,7 +10,6 @@
   --focus: #6c63ff;
   --magenta-a: #ff4ecd;
   --magenta-b: #ff6b9f;
-  font-family: "Outfit", "Manrope", "Segoe UI", sans-serif;
 }
 
 * {
@@ -21,11 +20,16 @@ html,
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: var(--font-montserrat), sans-serif;
   color: var(--text-primary);
   background: linear-gradient(180deg, #0b0f1a 0%, #111827 52%, #1e1b4b 100%);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+
+.font-sans {
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 body::before {
@@ -118,6 +122,7 @@ a:hover {
   margin: 0 auto;
   padding: 1rem 0 2rem;
   animation: pageFade 0.5s ease;
+  min-width: 0;
 }
 
 .card {
@@ -304,6 +309,30 @@ table {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.location-history-table-wrap {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  border-radius: 1.2rem;
+}
+
+.location-history-table {
+  min-width: 100%;
+  table-layout: fixed;
+}
+
+.location-history-table th,
+.location-history-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.location-history-table td.break-words {
+  white-space: normal;
+  word-break: break-word;
+}
+
 thead th {
   color: #cdcaff;
   background: rgba(108, 99, 255, 0.12);
@@ -355,6 +384,60 @@ video {
   transform: translateY(-1px);
   box-shadow: 0 12px 28px rgba(108, 99, 255, 0.25);
   border-color: rgba(108, 99, 255, 0.45);
+}
+
+.access-action-button {
+  width: auto;
+  min-height: 32px;
+  padding: 0.36rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 0;
+  box-shadow: none;
+}
+
+.access-action-button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.access-table {
+  width: 100%;
+  min-width: 720px;
+  table-layout: fixed;
+}
+
+.access-table th,
+.access-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.access-table th:nth-child(1),
+.access-table td:nth-child(1) {
+  width: 18%;
+}
+
+.access-table th:nth-child(2),
+.access-table td:nth-child(2) {
+  width: 26%;
+}
+
+.access-table th:nth-child(3),
+.access-table td:nth-child(3) {
+  width: 12%;
+}
+
+.access-table th:nth-child(4),
+.access-table td:nth-child(4) {
+  width: 26%;
+}
+
+.access-table th:nth-child(5),
+.access-table td:nth-child(5) {
+  width: 18%;
 }
 
 .auth-card {
@@ -488,5 +571,11 @@ video {
 
   .attendance-main-button {
     width: 100%;
+  }
+
+  .access-action-button {
+    min-height: 30px;
+    padding: 0.34rem 0.68rem;
+    font-size: 0.72rem;
   }
 }

@@ -113,44 +113,46 @@ export default function UserAccessPage() {
           <Link href="/users">Back to User Management</Link>
         </p>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Assigned Locations</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  {user.userLocations.length === 0
-                    ? "None"
-                    : user.userLocations.map((entry) => entry.location.name).join(", ")}
-                </td>
-                <td>
-                  {user.role === "USER" ? (
-                    <button
-                      type="button"
-                      style={{ maxWidth: 180 }}
-                      onClick={() => startAssignLocations(user)}
-                    >
-                      Set Location Access
-                    </button>
-                  ) : (
-                    "-"
-                  )}
-                </td>
+        <div className="w-full min-w-0 overflow-x-auto rounded-3xl">
+          <table className="access-table min-w-full table-fixed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Assigned Locations</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td className="break-words">{user.name}</td>
+                  <td className="break-words">{user.email}</td>
+                  <td className="break-words">{user.role}</td>
+                  <td className="break-words">
+                    {user.userLocations.length === 0
+                      ? "None"
+                      : user.userLocations.map((entry) => entry.location.name).join(", ")}
+                  </td>
+                  <td className="whitespace-nowrap overflow-hidden text-left">
+                    {user.role === "USER" ? (
+                      <button
+                        type="button"
+                        className="access-action-button inline-flex !w-auto items-center justify-center px-3 py-1.5 text-xs md:text-sm rounded-full max-w-full overflow-hidden text-ellipsis whitespace-nowrap shadow-none hover:shadow-none"
+                        onClick={() => startAssignLocations(user)}
+                      >
+                        Set Location Access
+                      </button>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {assigningUserId ? (
           <>

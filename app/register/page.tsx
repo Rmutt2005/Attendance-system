@@ -51,7 +51,7 @@ export default function RegisterPage() {
       <div className="card auth-card" style={{ maxWidth: 460, margin: "70px auto" }}>
         <div className="auth-logo-wrap">
           <Image
-            src="/images/logo.PNG"
+            src="/logo.png"
             alt="Logo"
             width={56}
             height={56}
