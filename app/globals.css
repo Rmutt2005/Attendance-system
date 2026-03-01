@@ -404,14 +404,16 @@ video {
 
 .access-table {
   width: 100%;
-  min-width: 720px;
-  table-layout: fixed;
+  min-width: 100%;
+  table-layout: auto;
 }
 
 .access-table th,
 .access-table td {
   overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   vertical-align: middle;
 }
 
@@ -438,6 +440,14 @@ video {
 .access-table th:nth-child(5),
 .access-table td:nth-child(5) {
   width: 18%;
+}
+
+@media (max-width: 768px) {
+  .access-table th,
+  .access-table td {
+    padding: 0.55rem 0.5rem;
+    font-size: 0.8rem;
+  }
 }
 
 .auth-card {

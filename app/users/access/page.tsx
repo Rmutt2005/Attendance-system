@@ -113,8 +113,8 @@ export default function UserAccessPage() {
           <Link href="/users">Back to User Management</Link>
         </p>
 
-        <div className="w-full min-w-0 overflow-x-auto rounded-3xl">
-          <table className="access-table min-w-full table-fixed">
+        <div className="w-full min-w-0 overflow-hidden rounded-3xl">
+          <table className="access-table w-full min-w-full">
             <thead>
               <tr>
                 <th>Name</th>
@@ -135,11 +135,11 @@ export default function UserAccessPage() {
                       ? "None"
                       : user.userLocations.map((entry) => entry.location.name).join(", ")}
                   </td>
-                  <td className="whitespace-nowrap overflow-hidden text-left">
+                  <td className="overflow-hidden text-left">
                     {user.role === "USER" ? (
                       <button
                         type="button"
-                        className="access-action-button inline-flex !w-auto items-center justify-center px-3 py-1.5 text-xs md:text-sm rounded-full max-w-full overflow-hidden text-ellipsis whitespace-nowrap shadow-none hover:shadow-none"
+                        className="access-action-button inline-flex !w-auto items-center justify-center px-3 py-1.5 text-xs md:text-sm rounded-full max-w-full overflow-hidden text-ellipsis whitespace-normal break-words text-center leading-tight shadow-none hover:shadow-none"
                         onClick={() => startAssignLocations(user)}
                       >
                         Set Location Access
