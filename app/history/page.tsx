@@ -53,37 +53,39 @@ export default function HistoryPage() {
           <Link href="/">Back to Home</Link>
         </p>
         {error ? <p className="error">{error}</p> : null}
-        <table>
-          <thead>
-            <tr>
-              <th>Location</th>
-              <th>Type</th>
-              <th>Distance (m)</th>
-              <th>Face</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {history.map((item) => (
-              <tr key={item.id}>
-                <td>{item.location.name}</td>
-                <td>{attendanceTypeLabel[item.type]}</td>
-                <td>{item.distance.toFixed(2)}</td>
-                <td>{item.faceDetected ? "Yes" : "No"}</td>
-                <td>
-                  {new Date(item.createdAt).toLocaleString("en-GB", {
-                    timeZone: "Asia/Bangkok"
-                  })}
-                </td>
-              </tr>
-            ))}
-            {history.length === 0 ? (
+        <div className="w-full min-w-0 overflow-hidden rounded-3xl">
+          <table className="history-table w-full min-w-full">
+            <thead>
               <tr>
-                <td colSpan={5}>No records yet.</td>
+                <th className="break-words">Location</th>
+                <th className="break-words">Type</th>
+                <th className="break-words">Distance (m)</th>
+                <th className="break-words">Face</th>
+                <th className="break-words">Time</th>
               </tr>
-            ) : null}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {history.map((item) => (
+                <tr key={item.id}>
+                  <td className="break-words">{item.location.name}</td>
+                  <td className="break-words">{attendanceTypeLabel[item.type]}</td>
+                  <td className="break-words">{item.distance.toFixed(2)}</td>
+                  <td className="break-words">{item.faceDetected ? "Yes" : "No"}</td>
+                  <td className="break-words">
+                    {new Date(item.createdAt).toLocaleString("en-GB", {
+                      timeZone: "Asia/Bangkok"
+                    })}
+                  </td>
+                </tr>
+              ))}
+              {history.length === 0 ? (
+                <tr>
+                  <td className="break-words" colSpan={5}>No records yet.</td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   );

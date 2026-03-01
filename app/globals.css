@@ -393,6 +393,20 @@ table {
   align-items: center;
 }
 
+.history-table {
+  width: 100%;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+.history-table th,
+.history-table td {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+}
+
 thead th {
   color: #cdcaff;
   background: rgba(108, 99, 255, 0.12);
