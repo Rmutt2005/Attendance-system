@@ -1,95 +1,96 @@
-# Attendance System (Next.js App Router)
+# Live Demo
+URL:
+https://attendance-system-indol-xi.vercel.app/login
 
-## Overview
 
-- Next.js App Router + TypeScript
-- Prisma + PostgreSQL
-- Credentials auth (email/password) + JWT cookie session
-- Face detection (face exists only)
-- Geolocation + backend Haversine validation
-- Daily attendance flow with strict sequence (`MORNING_IN`, `LUNCH_OUT`, `AFTERNOON_IN`, `EVENING_OUT`)
-- Role-based access (`ADMIN`, `USER`)
-- Location-based attendance with per-user location permission
+#github
+https://github.com/Rmutt2005/Attendance-system
 
-## Main behavior
 
-- User flow:
-  1. Open `/attendance`
-  2. Select assigned location
-  3. Continue to `/attendance/[locationId]`
-  4. Face scan + submit attendance
-- Backend checks:
-  - selected location is active
-  - user has access to selected location
-  - face detected
-  - geolocation provided
-  - distance is within selected location radius
-  - daily sequence rule is valid in `Asia/Bangkok`
+Location:
+Vanness Plus
+Latitude: 13.722308626225788
+Longitude: 100.52935047875012
+Radius: 200 meters
+(Lat,Long from google map : Vanness Plus Consulting Co., Ltd.)
 
-## Admin capabilities
 
-- Manage users and assign location access (`/users`)
-- Manage locations (`/locations`)
-  - create / update / enable-disable / delete
-  - view location attendance history
+Admin account
+email: admin@example.com
+password: password123
 
-## Key routes
 
-- Auth:
-  - `POST /api/auth/login`
-  - `POST /api/auth/register`
-  - `POST /api/auth/logout`
-- User:
-  - `GET /api/me`
-  - `PATCH /api/me`
-  - `POST /api/checkin`
-  - `GET /api/history`
-  - `GET /api/locations` (only assigned active locations)
-- Admin:
-  - `GET/POST /api/users`
-  - `PATCH /api/users/:id` (set user location access)
-  - `GET/POST /api/locations`
-  - `GET/PATCH/DELETE /api/locations/:id`
-  - `GET /api/locations/:id/history`
+User account 
+email: test@mail.com 
+password: 123456789 
+access: Vanness Plus
 
-## Database schema
 
-- `User`: account + role
-- `Location`: attendance point (`name`, `latitude`, `longitude`, `radius`, `isActive`)
-- `UserLocation`: many-to-many access map between users and locations
-- `Attendance`: attendance log with selected `locationId`
+# 1) ภาพรวมแอป
+1. แอปนี้คือระบบลงเวลาเข้า–ออกงานผ่านมือถือ/เว็บ โดยตรวจ 2 เงื่อนไขก่อนลงเวลา:
+   - สแกนใบหน้า
+   - อยู่ในรัศมีสถานที่ที่อนุญาต
+2. ใช้สำหรับเก็บประวัติการลงเวลาของแต่ละคน เพื่อตรวจสอบย้อนหลังได้
+3. สามารถดูประวัติการ เข้า ออก ของแต่ละสถานที่ได้
+4. สามารถดูประวัติการ เข้า ออก ของแต่ละบุคคลได้
 
-## Setup
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Configure `.env` from `.env.example`:
-   - `DATABASE_URL`
-   - `JWT_SECRET`
-3. Apply migrations:
-   ```bash
-   npx prisma migrate deploy
-   ```
-4. Generate Prisma client:
-   ```bash
-   npx prisma generate
-   ```
-5. Seed sample data:
-   ```bash
-   npm run prisma:seed
-   ```
-   - Admin: `admin@example.com / password123`
-   - User: `user@example.com / password123`
-6. Put face-api model files in `public/models/`
-7. Run:
-   ```bash
-   npm run dev
-   ```
+# 2) ฟังก์ชันหลัก
+1. ผู้ใช้สมัครสมาชิก / ล็อกอินด้วยอีเมลและรหัสผ่าน
+2. ผู้ดูแล (Admin) จัดการสถานที่ลงเวลา (Location):
+   - เพิ่ม
+   - แก้ไข
+   - ลบ
+3. ผู้ดูแลกำหนดสิทธิ์ว่า User คนไหนลงเวลาได้ที่ Location ไหน
+4. ผู้ใช้เลือกสถานที่ แล้วลงเวลาได้ 4 ประเภทต่อวัน:
+   - MORNING_IN
+   - LUNCH_OUT
+   - AFTERNOON_IN
+   - EVENING_OUT
+5. ระบบป้องกันการลงเวลาที่ไม่ถูกต้อง:
+   - ไม่เจอหน้า → ไม่ให้ลง
+   - ไม่อนุญาต Location (หรืออยู่นอกรัศมี) → ไม่ให้ลง
+   - ลงซ้ำประเภทเดิมในวันเดียวกัน → ไม่ให้ลง
+   - ลงผิดลำดับช่วงเวลา → ไม่ให้ลง
 
-## Deploy notes
 
-- Configure `DATABASE_URL` and `JWT_SECRET` in Vercel
-- Run `prisma migrate deploy` on deployment
-- Camera + geolocation require HTTPS
+# 3) ผู้ใช้ทั่วไปต้องทำอะไรบ้าง
+1. ล็อกอิน
+2. เข้าเมนูลงเวลา
+3. เลือกสถานที่ที่มีสิทธิ์
+4. อนุญาตกล้อง + ตำแหน่ง (Location)
+5. เลือกประเภทการลงเวลา แล้วกดบันทึก
+6. ตรวจสอบผลในหน้า History
+
+
+# 4) วิธีเทสระบบ (แนะนำทีละขั้น)
+1. ล็อกอินด้วยบัญชี Admin
+2. ไปหน้า Location Management แล้วสร้าง Location ใหม่ (ชื่อ + พิกัด + รัศมี เช่น 200m)
+3. ไปหน้า Assign Location Access แล้วกำหนดสิทธิ์ User ให้เข้าถึง Location ที่สร้าง
+4. ล็อกอินเป็น User
+5. ไปหน้าลงเวลา เลือก Location ที่ได้รับสิทธิ์
+6. กดอนุญาตกล้องและตำแหน่ง แล้วลองลง MORNING_IN
+7. เข้า History เพื่อตรวจว่ามีบันทึกจริง
+8. ทดสอบเคสผิดพลาด:
+   - ปิดกล้อง / ไม่อนุญาตตำแหน่ง
+   - อยู่ไกลเกิน 200 เมตร
+   - ลงซ้ำประเภทเดิม
+   - ลงข้ามลำดับ (เช่น AFTERNOON_IN ก่อน LUNCH_OUT)
+
+
+# 5) เงื่อนไขสำคัญก่อนเทส
+1. ต้องรันผ่าน https (โดยเฉพาะบนมือถือ) เพื่อให้กล้อง/ตำแหน่งทำงานครบ
+2. เบราว์เซอร์ต้องอนุญาต Camera + Geolocation
+3. User ต้องมีสิทธิ์ Location จาก Admin ก่อน ไม่งั้นลงเวลาไม่ได้
+
+
+Tech stack
+Frontend: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS + global CSS
+Backend (in Next.js): Route Handlers (REST API) บน Node.js runtime
+Authentication: Email/Password (custom credentials), bcryptjs (hash password), JWT session ด้วย jose
+Database: PostgreSQL
+ORM: Prisma (@prisma/client, Prisma Migrate/Seed/Studio)
+Face Detection: face-api.js 
+Geolocation: Browser Geolocation API (ฝั่ง client) + ตรวจระยะฝั่ง backend ด้วย Haversine formula
+Timezone Handling: Asia/Bangkok สำหรับแยกวันลงเวลา
+Deployment Target: Vercel (รองรับ HTTPS สำหรับ camera + geolocation)
