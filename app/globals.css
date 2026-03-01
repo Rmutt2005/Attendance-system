@@ -318,14 +318,15 @@ table {
 
 .location-history-table {
   min-width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .location-history-table th,
 .location-history-table td {
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .location-history-table td.break-words {
@@ -419,27 +420,17 @@ video {
 
 .access-table th:nth-child(1),
 .access-table td:nth-child(1) {
-  width: 18%;
+  width: 30%;
 }
 
 .access-table th:nth-child(2),
 .access-table td:nth-child(2) {
-  width: 26%;
+  width: 40%;
 }
 
 .access-table th:nth-child(3),
 .access-table td:nth-child(3) {
-  width: 12%;
-}
-
-.access-table th:nth-child(4),
-.access-table td:nth-child(4) {
-  width: 26%;
-}
-
-.access-table th:nth-child(5),
-.access-table td:nth-child(5) {
-  width: 18%;
+  width: 30%;
 }
 
 @media (max-width: 768px) {

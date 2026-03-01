@@ -108,22 +108,18 @@ export default function LocationHistoryPage() {
           <table className="min-w-full table-fixed location-history-table">
           <thead>
             <tr>
-              <th className="truncate max-w-[180px]">User</th>
-              <th className="truncate max-w-[180px]">Email</th>
-              <th className="truncate max-w-[180px]">Type</th>
-              <th className="truncate max-w-[180px]">Distance</th>
-              <th className="truncate max-w-[180px]">Face</th>
-              <th className="truncate max-w-[180px]">Time</th>
+              <th className="break-words">User</th>
+              <th className="break-words">Email</th>
+              <th className="break-words">Type</th>
+              <th className="break-words">Time</th>
             </tr>
           </thead>
           <tbody>
             {historyItems.map((item) => (
               <tr key={item.id}>
-                <td className="truncate max-w-[180px]">{item.user.name}</td>
-                <td className="truncate max-w-[180px]">{item.user.email}</td>
-                <td className="truncate max-w-[180px]">{attendanceTypeLabel[item.type]}</td>
-                <td className="truncate max-w-[180px]">{item.distance.toFixed(2)}m</td>
-                <td className="truncate max-w-[180px]">{item.faceDetected ? "Yes" : "No"}</td>
+                <td className="break-words">{item.user.name}</td>
+                <td className="break-words">{item.user.email}</td>
+                <td className="break-words">{attendanceTypeLabel[item.type]}</td>
                 <td className="break-words">
                   {new Date(item.createdAt).toLocaleString("en-GB", {
                     timeZone: "Asia/Bangkok"
@@ -133,7 +129,7 @@ export default function LocationHistoryPage() {
             ))}
             {historyItems.length === 0 ? (
               <tr>
-                <td className="break-words" colSpan={6}>No records.</td>
+                <td className="break-words" colSpan={4}>No records.</td>
               </tr>
             ) : null}
           </tbody>

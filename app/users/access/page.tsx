@@ -119,8 +119,6 @@ export default function UserAccessPage() {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
-                <th>Assigned Locations</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -129,12 +127,6 @@ export default function UserAccessPage() {
                 <tr key={user.id}>
                   <td className="break-words">{user.name}</td>
                   <td className="break-words">{user.email}</td>
-                  <td className="break-words">{user.role}</td>
-                  <td className="break-words">
-                    {user.userLocations.length === 0
-                      ? "None"
-                      : user.userLocations.map((entry) => entry.location.name).join(", ")}
-                  </td>
                   <td className="overflow-hidden text-left">
                     {user.role === "USER" ? (
                       <button
