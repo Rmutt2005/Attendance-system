@@ -50,14 +50,14 @@ export default function RegisterPage() {
     <main className="container">
       <div className="card auth-card" style={{ maxWidth: 460, margin: "70px auto" }}>
         <div className="auth-logo-wrap">
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={56}
-            height={56}
-            className="auth-logo"
-          />
-        </div>
+                  <Image
+                    src="/logo.png"
+                    alt="Logo"
+                    width={120}
+                    height={80}
+                    className="auth-logo"
+                  />
+                </div>
         <h1>Register</h1>
         <p className="auth-subtitle">Create your account in seconds.</p>
         <form onSubmit={onSubmit}>
