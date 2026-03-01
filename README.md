@@ -3,29 +3,6 @@ URL:
 https://attendance-system-indol-xi.vercel.app/login
 
 
-#github
-https://github.com/Rmutt2005/Attendance-system
-
-
-Location:
-Vanness Plus
-Latitude: 13.722308626225788
-Longitude: 100.52935047875012
-Radius: 200 meters
-(Lat,Long from google map : Vanness Plus Consulting Co., Ltd.)
-
-
-Admin account
-email: admin@example.com
-password: password123
-
-
-User account 
-email: test@mail.com 
-password: 123456789 
-access: Vanness Plus
-
-
 # 1) ภาพรวมแอป
 1. แอปนี้คือระบบลงเวลาเข้า–ออกงานผ่านมือถือ/เว็บ โดยตรวจ 2 เงื่อนไขก่อนลงเวลา:
    - สแกนใบหน้า
