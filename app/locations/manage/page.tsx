@@ -142,54 +142,56 @@ export default function ManageLocationsPage() {
           <Link href="/locations">Back to Location Management</Link>
         </p>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Lat/Lng</th>
-              <th>Radius</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {locations.map((location) => (
-              <tr key={location.id}>
-                <td>{location.name}</td>
-                <td>
-                  {location.latitude}, {location.longitude}
-                </td>
-                <td>{location.radius}m</td>
-                <td>{location.isActive ? "Active" : "Inactive"}</td>
-                <td>
-                  <div className="row">
-                    <button
-                      type="button"
-                      className="button-secondary"
-                      onClick={() => startEdit(location)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      className="button-muted"
-                      onClick={() => toggleActive(location)}
-                    >
-                      {location.isActive ? "Disable" : "Enable"}
-                    </button>
-                    <button
-                      type="button"
-                      className="button-danger"
-                      onClick={() => deleteLocation(location.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
+        <div className="w-full min-w-0 overflow-hidden rounded-3xl">
+          <table className="manage-locations-table w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Lat/Lng</th>
+                <th>Radius</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {locations.map((location) => (
+                <tr key={location.id}>
+                  <td className="break-words">{location.name}</td>
+                  <td className="break-words">
+                    {location.latitude.toFixed(2)}, {location.longitude.toFixed(2)}
+                  </td>
+                  <td className="break-words">{location.radius}m</td>
+                  <td className="break-words">{location.isActive ? "Active" : "Inactive"}</td>
+                  <td className="break-words">
+                    <div className="row manage-location-actions">
+                      <button
+                        type="button"
+                        className="button-secondary manage-action-button"
+                        onClick={() => startEdit(location)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="button-muted manage-action-button"
+                        onClick={() => toggleActive(location)}
+                      >
+                        {location.isActive ? "Disable" : "Enable"}
+                      </button>
+                      <button
+                        type="button"
+                        className="button-danger manage-action-button"
+                        onClick={() => deleteLocation(location.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {editingId ? (
           <>

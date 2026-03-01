@@ -334,6 +334,65 @@ table {
   word-break: break-word;
 }
 
+.manage-locations-table {
+  width: 100%;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+.manage-locations-table th,
+.manage-locations-table td {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+}
+
+.manage-locations-table th:nth-child(1),
+.manage-locations-table td:nth-child(1) {
+  width: 22%;
+}
+
+.manage-locations-table th:nth-child(2),
+.manage-locations-table td:nth-child(2) {
+  width: 30%;
+}
+
+.manage-locations-table th:nth-child(3),
+.manage-locations-table td:nth-child(3) {
+  width: 12%;
+}
+
+.manage-locations-table th:nth-child(4),
+.manage-locations-table td:nth-child(4) {
+  width: 14%;
+}
+
+.manage-locations-table th:nth-child(5),
+.manage-locations-table td:nth-child(5) {
+  width: 22%;
+}
+
+.manage-location-actions > * {
+  flex: 0 0 auto;
+  min-width: auto;
+}
+
+.manage-action-button {
+  width: auto !important;
+  min-height: 32px;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.76rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.manage-location-actions {
+  gap: 0.45rem;
+  align-items: center;
+}
+
 thead th {
   color: #cdcaff;
   background: rgba(108, 99, 255, 0.12);
