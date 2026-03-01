@@ -97,9 +97,9 @@ a:hover {
 }
 
 .chrome-logo {
-  border-radius: 999px;
+  border-radius: 0.7rem !important;
   background: #ffffff;
-  padding: 5px;
+  padding: 4px;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 10px 24px rgba(108, 99, 255, 0.4);
 }
 
@@ -455,6 +455,7 @@ video {
 }
 
 .auth-logo-wrap {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -462,9 +463,11 @@ video {
 }
 
 .auth-logo {
-  border-radius: 999px;
+  border-radius: 0.7rem !important;
   background: #ffffff;
   padding: 8px;
+  
+  
   box-shadow: 0 12px 30px rgba(108, 99, 255, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 

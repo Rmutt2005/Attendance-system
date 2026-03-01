@@ -25,8 +25,8 @@ export default function AppChrome() {
         <Image
           src="/logo.png"
           alt="Logo"
-          width={34}
-          height={34}
+          width={70}
+          height={42}
           className="chrome-logo"
           priority
         />
